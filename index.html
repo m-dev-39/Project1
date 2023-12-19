@@ -24,7 +24,7 @@
         <label for="symbols">Include Symbols:</label>
         <input type="checkbox" id="symbols" name="symbols" checked>
         <br>
-        <button type="button" class="btn" onclick="copyToClipboard()">📋</button>
+        <button type="button" class="btn" onclick="copyToClipboard()">📋 Copy</button>
     </form>
     <div id="password" class="result-container"></div>
 
@@ -41,7 +41,9 @@
             alert('Password copied to clipboard!'); // Use a tooltip or other UI indication instead of alert
         }
 
-        // ... (rest of the JavaScript code)
+        function generatePassword() {
+            // ... (unchanged code for password generation)
+        }
     </script>
 </body>
 </html>
