@@ -2,7 +2,7 @@
 
 body {
     font-family: 'Muli', sans-serif;
-    background-color: E0FFFF;
+    background-color: #ccc; /* Change this to your preferred shade of grey */
     color: #fff;
     display: flex;
     flex-direction: column;
@@ -15,7 +15,7 @@ body {
 }
 
 .container {
-    background-color: 708090;
+    background-color: #7a4fac;
     box-shadow: 0px 2px 10px rgba(255, 255, 255, 0.2);
     padding: 20px;
     width: 350px;
