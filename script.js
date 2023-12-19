@@ -16,7 +16,7 @@ function copyToClipboard() {
     textarea.value = password;
     document.body.appendChild(textarea);
     textarea.select();
-    document.execCommand('copy');
+    document.execCommand();
     textarea.remove();
     alert('Password copied to clipboard!'); // Use a tooltip or other UI indication instead of alert
 }
