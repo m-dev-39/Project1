@@ -2,7 +2,7 @@
 
 body {
     font-family: 'Muli', sans-serif;
-    background-color: #3b4498;
+    background-color: #ccc; /* Change this to your preferred shade of grey */
     color: #fff;
     display: flex;
     flex-direction: column;
