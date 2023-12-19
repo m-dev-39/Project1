@@ -1,50 +1,51 @@
-document.getElementById('generate').addEventListener('click', generatePassword);
+resultEl = document.getElementById('password');
+const lengthEl = document.getElementById('length');
+const uppercaseEl = document.getElementById('uppercase');
+const lowercaseEl = document.getElementById('lowercase');
+const numbersEl = document.getElementById('numbers');
+const symbolsEl = document.getElementById('symbols');
+const generateEl = document.getElementById('generate');
+const clipboardEl = document.getElementById('clipboard');
 
-function generatePassword() {
-    const length = document.getElementById('length').value;
-    const hasLower = document.getElementById('lowercase').checked;
-    const hasUpper = document.getElementById('uppercase').checked;
-    const hasNumber = document.getElementById('numbers').checked;
-    const hasSymbol = document.getElementById('symbols').checked;
+clipboardEl.addEventListener('click', copyToClipboard);
 
-    const result = document.getElementById('result');
-    result.value = generatePasswordString(length, hasLower, hasUpper, hasNumber, hasSymbol);
+function copyToClipboard() {
+    const textarea = document.createElement('textarea');
+    const password = resultEl.innerText;
+    if (!password) { return; }
+    textarea.value = password;
+    document.body.appendChild(textarea);
+    textarea.select();
+    document.execCommand('copy');
+    textarea.remove();
+    alert('Password copied to clipboard!'); // Use a tooltip or other UI indication instead of alert
 }
 
-function generatePasswordString(length, lower, upper, number, symbol) {
+generateEl.addEventListener('click', () => {
+    const length = +lengthEl.value;
+    const hasLower = lowercaseEl.checked;
+    const hasUpper = uppercaseEl.checked;
+    const hasNumber = numbersEl.checked;
+    const hasSymbol = symbolsEl.checked;
+    resultEl.innerText = generatePassword(hasLower, hasUpper, hasNumber, hasSymbol, length);
+});
+
+function generatePassword(lower, upper, number, symbol, length) {
     let generatedPassword = '';
     const typesCount = lower + upper + number + symbol;
-    const typesArr = [{ lower }, { upper }, { number }, { symbol }].filter(item => Object.values(item)[0]);
-
-    if (typesCount === 0) {
+    const typesArr = [{lower}, {upper}, {number}, {symbol}].filter(item => Object.values(item)[0]);
+    if(typesCount === 0) {
         return '';
     }
-
-    for (let i = 0; i < length; i += typesCount) {
+    for(let i = 0; i < length; i += typesCount) {
         typesArr.forEach(type => {
             const funcName = Object.keys(type)[0];
             generatedPassword += randomFunc[funcName]();
         });
     }
-
-    return generatedPassword.slice(0, length);
+    const finalPassword = generatedPassword.slice(0, length);
+    return finalPassword;
 }
-
-function copyToClipboard() {
-    const result = document.getElementById('result');
-    if (result.value) {
-        result.select();
-        document.execCommand('copy');
-        alert('Password copied to clipboard!');
-    }
-}
-
-const randomFunc = {
-    lower: getRandomLower,
-    upper: getRandomUpper,
-    number: getRandomNumber,
-    symbol: getRandomSymbol
-};
 
 function getRandomLower() {
     return String.fromCharCode(Math.floor(Math.random() * 26) + 97);
@@ -59,6 +60,6 @@ function getRandomNumber() {
 }
 
 function getRandomSymbol() {
-    const symbols = '!@#$%^&*(){}[]=<>/,.';
+    const symbols = '!@#$%^&*(){}[]=</>,.';
     return symbols[Math.floor(Math.random() * symbols.length)];
 }
